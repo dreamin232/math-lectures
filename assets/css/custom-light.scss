@@ -1,0 +1,29 @@
+/*-- scss:defaults --*/
+
+/* Светлая тема: чуть тёплый белый фон, акцент — синий */
+$body-bg:        #fafaf8;
+$body-color:     #1a1a2e;
+$link-color:     #2563eb;
+$code-bg:        #f1f5f9;
+
+$primary:        #2563eb;
+$secondary:      #64748b;
+$success:        #16a34a;
+$warning:        #d97706;
+$danger:         #dc2626;
+
+/* Размер шрифта */
+$font-size-root: 16px;
+
+/*-- scss:rules --*/
+
+/* Цвет TOC */
+#TOC a {
+  color: $secondary;
+  &:hover { color: $primary; }
+}
+
+/* Боковая навигация */
+.sidebar-navigation .sidebar-item-text {
+  font-size: 0.9rem;
+}

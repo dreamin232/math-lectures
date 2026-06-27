@@ -1,0 +1,341 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  russian,
+  12pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[top=25mm,bottom=25mm,left=30mm,right=20mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,provide=*]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,provide=*]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+% ============================================================
+% Преамбула для PDF-версии лекций (XeLaTeX)
+% ============================================================
+
+% Русский язык
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+% Шрифты
+\usepackage{fontspec}
+\setmainfont{PT Serif}[
+  BoldFont      = PT Serif Bold,
+  ItalicFont    = PT Serif Italic,
+  BoldItalicFont= PT Serif Bold Italic
+]
+\setsansfont{PT Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=0.9]
+
+% Математика
+\usepackage{amsmath, amsthm, amssymb, mathtools}
+
+% Теоремы на русском
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+\newtheorem{example}[theorem]{Пример}
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
+
+% Красивые заголовки
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{{\thesection}}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily}{{\thesubsection}}{1em}{}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\leftmark}
+\fancyhead[R]{\small Математический анализ}
+\fancyfoot[C]{\thepage}
+
+% Цвета и гиперссылки
+\usepackage{xcolor}
+\definecolor{mathblue}{HTML}{2563eb}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=mathblue,
+  urlcolor=mathblue,
+  citecolor=mathblue
+}
+
+% Красивые блоки для доказательств и замечаний
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+
+\tcolorboxenvironment{theorem}{
+  colback=blue!5, colframe=blue!50!black,
+  boxrule=0.5pt, breakable, enhanced
+}
+\tcolorboxenvironment{definition}{
+  colback=green!5, colframe=green!50!black,
+  boxrule=0.5pt, breakable, enhanced
+}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список Иллюстраций}
+\else
+  \newcommand\listfigurename{Список Иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список Таблиц}
+\else
+  \newcommand\listtablename{Список Таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Список Каталогов}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Математический анализ},
+  pdflang={ru},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Математический анализ}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Конспекты лекций для студентов 1--2 курса}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\section{Добро
+пожаловать}\label{ux434ux43eux431ux440ux43e-ux43fux43eux436ux430ux43bux43eux432ux430ux442ux44c}
+
+Здесь собраны структурированные конспекты лекций по математическому
+анализу. Доказательства можно разворачивать по необходимости ---
+конспект читается и «по верхам», и в полной глубине.
+
+\subsection*{Лекции}\label{ux43bux435ux43aux446ux438ux438}
+\addcontentsline{toc}{subsection}{Лекции}
+
+\subsubsection{📐 Пределы и
+непрерывность}\label{ux43fux440ux435ux434ux435ux43bux44b-ux438-ux43dux435ux43fux440ux435ux440ux44bux432ux43dux43eux441ux442ux44c}
+
+Предел функции, теоремы о пределах, замечательные пределы, непрерывность
+и классификация разрывов.
+
+\href{lectures/01-limits.qmd}{Читать →}
+
+\subsubsection{📈
+Производная}\label{ux43fux440ux43eux438ux437ux432ux43eux434ux43dux430ux44f}
+
+Определение производной, правила дифференцирования, производные высших
+порядков, формула Тейлора.
+
+\href{lectures/02-derivatives.qmd}{Читать →}
+
+\subsubsection{∫
+Интегралы}\label{ux438ux43dux442ux435ux433ux440ux430ux43bux44b}
+
+Первообразная и неопределённый интеграл, формула Ньютона--Лейбница,
+методы интегрирования.
+
+\href{lectures/03-integrals.qmd}{Читать →}
+
+\subsubsection{📦 Кратные
+интегралы}\label{ux43aux440ux430ux442ux43dux44bux435-ux438ux43dux442ux435ux433ux440ux430ux43bux44b}
+
+Двойной и тройной интеграл, замена переменных, приложения --- площади,
+объёмы, центры масс.
+
+\href{lectures/04-multiple-integrals.qmd}{Читать →}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Как пользоваться сайтом}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Доказательства} скрыты по умолчанию --- нажмите «▶
+  Доказательство», чтобы развернуть.
+\item
+  \textbf{Формулы} пронумерованы; на них можно ссылаться из других
+  лекций.
+\item
+  \textbf{Поиск} работает по всем лекциям --- кнопка 🔍 в навигации.
+\item
+  \textbf{PDF} каждой лекции доступен по кнопке «↓ PDF» в правом верхнем
+  углу.
+\item
+  Переключение \textbf{тёмной темы} --- иконка 🌙 в правом верхнем углу.
+\end{itemize}
+
+\end{tcolorbox}
+
+
+
+
+\end{document}

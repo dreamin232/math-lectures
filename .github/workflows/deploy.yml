@@ -1,0 +1,69 @@
+name: Сборка и публикация сайта
+
+on:
+  push:
+    branches: [main]          # Запускается при каждом push в main
+  pull_request:
+    branches: [main]          # Проверяет PR перед мержем
+
+# Права для публикации на GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Не запускать несколько сборок одновременно
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Клонируем репозиторий
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Python и зависимости для графиков
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python packages
+        run: |
+          pip install jupyter plotly numpy scipy nbformat
+
+      # 3. Устанавливаем Quarto
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 'release'   # всегда последняя стабильная версия
+          tinytex: true        # TinyTeX для PDF-версий
+
+      # 4. Рендерим сайт
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          to: html             # основной формат — HTML
+
+      # 5. Загружаем артефакт для Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/          # папка, указанная в output-dir в _quarto.yml
+
+  # Отдельный job для деплоя (только из main)
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

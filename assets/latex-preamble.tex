@@ -1,0 +1,68 @@
+% ============================================================
+% Преамбула для PDF-версии лекций (XeLaTeX)
+% ============================================================
+
+% Русский язык
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+% Шрифты
+\usepackage{fontspec}
+\setmainfont{PT Serif}[
+  BoldFont      = PT Serif Bold,
+  ItalicFont    = PT Serif Italic,
+  BoldItalicFont= PT Serif Bold Italic
+]
+\setsansfont{PT Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=0.9]
+
+% Математика
+\usepackage{amsmath, amsthm, amssymb, mathtools}
+
+% Теоремы на русском
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+\newtheorem{example}[theorem]{Пример}
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
+
+% Красивые заголовки
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{{\thesection}}{1em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily}{{\thesubsection}}{1em}{}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\leftmark}
+\fancyhead[R]{\small Математический анализ}
+\fancyfoot[C]{\thepage}
+
+% Цвета и гиперссылки
+\usepackage{xcolor}
+\definecolor{mathblue}{HTML}{2563eb}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=mathblue,
+  urlcolor=mathblue,
+  citecolor=mathblue
+}
+
+% Красивые блоки для доказательств и замечаний
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+
+\tcolorboxenvironment{theorem}{
+  colback=blue!5, colframe=blue!50!black,
+  boxrule=0.5pt, breakable, enhanced
+}
+\tcolorboxenvironment{definition}{
+  colback=green!5, colframe=green!50!black,
+  boxrule=0.5pt, breakable, enhanced
+}

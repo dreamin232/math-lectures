@@ -1,0 +1,144 @@
+# ============================================
+# _quarto.yml — главный конфигурационный файл
+# ============================================
+
+# Тип проекта: веб-сайт (не книга)
+project:
+  type: website
+  output-dir: docs          # Готовый сайт будет в папке docs/ (для GitHub Pages)
+
+# ============================================
+# НАСТРОЙКИ САЙТА
+# ============================================
+website:
+  title: "Математический анализ"
+  description: "Конспекты лекций для студентов 1–2 курса"
+  favicon: assets/favicon.ico   # Иконка во вкладке браузера (создайте позже)
+
+  # --- Верхняя панель навигации ---
+  navbar:
+    left:
+      - text: "Главная"
+        href: index.qmd
+      - text: "Лекции"
+        menu:
+          - text: "1. Пределы и непрерывность"
+            href: lectures/01-limits.qmd
+          - text: "2. Производная"
+            href: lectures/02-derivatives.qmd
+          - text: "3. Интегралы"
+            href: lectures/03-integrals.qmd
+          - text: "4. Кратные интегралы"
+            href: lectures/04-multiple-integrals.qmd
+    right:
+      - icon: github
+        href: https://github.com/dreamin232/math-lectures
+        aria-label: GitHub
+      # --- КНОПКА PDF ВРЕМЕННО ОТКЛЮЧЕНА (пока не настроим TinyTeX) ---
+      # - icon: download
+      #   text: "PDF"
+      #   href: lectures/01-limits.pdf
+
+  # --- Боковая панель (слева) ---
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Лекции"
+        contents:
+          - lectures/01-limits.qmd
+          - lectures/02-derivatives.qmd
+          - lectures/03-integrals.qmd
+          - lectures/04-multiple-integrals.qmd
+
+  # --- Поиск по сайту ---
+  search:
+    location: navbar
+    type: overlay
+
+  # --- Нижний колонтитул ---
+  page-footer:
+    left: "Конспекты лекций по матанализу"
+    right: "Сделано с помощью [Quarto](https://quarto.org)"
+
+# ============================================
+# ФОРМАТЫ ВЫВОДА
+# ============================================
+format:
+  # ---------- HTML для сайта ----------
+  html:
+    theme:
+      light: [flatly, assets/css/custom-light.scss]
+      dark:  [darkly, assets/css/custom-dark.scss]
+    css: assets/css/main.css
+    
+    toc: true
+    toc-depth: 3
+    toc-title: "На этой странице"
+    toc-expand: true
+    
+    number-sections: true
+    number-depth: 3
+    
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    
+    html-math-method: mathjax
+    smooth-scroll: true
+    
+    link-external-icon: true
+    link-external-newwindow: true
+
+  # ---------- PDF ВРЕМЕННО ОТКЛЮЧЕН (ошибка с TinyTeX) ----------
+  # pdf:
+  #   documentclass: article
+  #   papersize: a4
+  #   lang: ru
+  #   fontsize: 12pt
+  #   geometry:
+  #     - top=25mm
+  #     - bottom=25mm
+  #     - left=30mm
+  #     - right=20mm
+  #   include-in-header: assets/latex-preamble.tex
+  #   toc: true
+  #   number-sections: true
+  #   colorlinks: true
+
+# ============================================
+# НАСТРОЙКИ ВЫПОЛНЕНИЯ КОДА
+# ============================================
+jupyter: python3
+
+# ============================================
+# КРОСС-ССЫЛКИ (автоматическая нумерация)
+# ============================================
+crossref:
+  eq-prefix: "формула"
+  fig-prefix: "рисунок"
+  thm-prefix: "теорема"
+  def-prefix: "определение"
+
+# ============================================
+# НУМЕРАЦИЯ ТЕОРЕМ/ОПРЕДЕЛЕНИЙ
+# ============================================
+theorems:
+  thm:
+    type: "Теорема"
+    counter: "section"
+  def:
+    type: "Определение"
+    counter: "section"
+  lem:
+    type: "Лемма"
+    counter: "section"
+  cor:
+    type: "Следствие"
+    counter: "section"
+  exm:
+    type: "Пример"
+    counter: "section"
+  rmk:
+    type: "Замечание"
+    counter: "section"

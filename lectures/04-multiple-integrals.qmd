@@ -1,0 +1,63 @@
+---
+title: "Лекция 4. Кратные интегралы (пример с 3D-графиком)"
+subtitle: "Фрагмент — визуализация области интегрирования"
+---
+
+# Двойной интеграл — визуализация
+
+Ниже — интерактивный 3D-график поверхности $z = x^2 + y^2$.
+Его можно вращать мышью, масштабировать колесиком.
+
+```{python}
+#| label: fig-paraboloid
+#| fig-cap: "Параболоид $z = x^2 + y^2$ над квадратом $[-1,1]^2$"
+#| echo: false   # код скрыт, показывается только график
+
+import numpy as np
+import plotly.graph_objects as go
+
+# Сетка точек
+x = np.linspace(-1, 1, 60)
+y = np.linspace(-1, 1, 60)
+X, Y = np.meshgrid(x, y)
+Z = X**2 + Y**2
+
+fig = go.Figure(data=[
+    go.Surface(
+        x=X, y=Y, z=Z,
+        colorscale='Blues',
+        showscale=False,
+        opacity=0.85
+    )
+])
+
+fig.update_layout(
+    scene=dict(
+        xaxis_title='x',
+        yaxis_title='y',
+        zaxis_title='z',
+        camera=dict(eye=dict(x=1.5, y=1.5, z=1.2))
+    ),
+    margin=dict(l=0, r=0, t=0, b=0),
+    height=450
+)
+
+fig.show()
+```
+
+Двойной интеграл $\displaystyle\iint_D (x^2 + y^2)\,dA$
+над квадратом $D = [-1,1]^2$ равен объёму под этой поверхностью.
+
+```{python}
+#| label: calc-integral
+#| echo: true     # здесь показываем код — студент видит, как считается численно
+#| code-fold: true
+#| code-summary: "Показать вычисление через scipy"
+
+from scipy import integrate
+
+f = lambda y, x: x**2 + y**2
+result, error = integrate.dblquad(f, -1, 1, -1, 1)
+print(f"Численное значение: {result:.6f}")
+print(f"Аналитически: 4/3 = {4/3:.6f}")
+```
